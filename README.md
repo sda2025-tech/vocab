@@ -9,7 +9,7 @@ Advanced academic English in the same shape as [Mana Telugu](https://sda2025-tec
 - **Flashcards** — flip, hear, mark known
 - **Text completion** — 1–2 blank GRE-style items
 - **Sentence equivalence** — pick two synonyms that both fit
-- **Instagram card** — download + caption from the same daily word
+- **Instagram** — still or voiced video from the same daily word; caption + Stories **link sticker** for the clickable lesson (stills cannot play sound or hold in-image links)
 
 ## Local preview
 

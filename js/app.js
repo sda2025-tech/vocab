@@ -5,12 +5,15 @@ import {
   wordByNumber,
   dateKey,
   captionFor,
+  lessonUrl,
+  audioUrl,
   loadStreak,
   recordCompletion,
   makeFindChoices,
   makeUseChoices,
   paintStory,
   downloadStory,
+  downloadStoryVideo,
 } from "./daily.js";
 
 const app = document.querySelector("#app");
@@ -157,12 +160,21 @@ function pips(current) {
 function storyBlock(d) {
   return `<div class="story-block">
     <canvas id="story-canvas" class="story-preview" width="1080" height="1920" aria-label="Instagram story card"></canvas>
-    <p class="story-hint">This card is today’s word. Post it as-is — do not invent a second lesson for the feed.</p>
+    <p class="story-hint">A still cannot play Learn / Find / Use, play sound, or hold a tap target. Instagram only allows voice on video, and a click through a Stories link sticker.</p>
+    <ol class="story-steps">
+      <li>Download the <strong>video with voice</strong> and upload it as a Story or Reel. Chrome often saves WebM; if Instagram on iPhone rejects it, post the still instead — voice stays on the lesson page.</li>
+      <li>Copy the lesson link. In Stories, add a <strong>Link</strong> sticker and paste it.</li>
+      <li>Paste the caption. Feed URLs are not tappable — the sticker is the click.</li>
+    </ol>
     <textarea class="caption-box" readonly>${escapeHtml(captionFor(d))}</textarea>
     <div class="cover-actions">
-      <button class="btn" data-daily="download" type="button">Download story</button>
+      <button class="btn" data-daily="video" type="button">Download video with voice</button>
+      <button class="btn ghost" data-daily="download" type="button">Download still</button>
+      <button class="btn ghost" data-daily="copy-link" type="button">Copy lesson link</button>
       <button class="btn ghost" data-daily="copy" type="button">Copy caption</button>
+      <button class="btn ghost" data-daily="hear" type="button">Play pronunciation</button>
     </div>
+    <p class="story-status" id="story-status" hidden></p>
   </div>`;
 }
 
@@ -509,6 +521,37 @@ app.addEventListener("click", (e) => {
   }
   if (t.dataset.daily === "download") {
     downloadStory(document.querySelector("#story-canvas"), resolveDaily());
+    return;
+  }
+  if (t.dataset.daily === "video") {
+    const status = document.querySelector("#story-status");
+    t.disabled = true;
+    if (status) {
+      status.hidden = false;
+      status.textContent = "Recording voice + card… keep this tab open.";
+    }
+    downloadStoryVideo(document.querySelector("#story-canvas"), resolveDaily())
+      .then(() => {
+        if (status) status.textContent = "Saved. Upload that file to a Story or Reel, then add a Link sticker.";
+      })
+      .catch((err) => {
+        if (status) status.textContent = err.message || "Could not record video in this browser.";
+      })
+      .finally(() => {
+        t.disabled = false;
+      });
+    return;
+  }
+  if (t.dataset.daily === "copy-link") {
+    navigator.clipboard?.writeText(lessonUrl(resolveDaily())).then(() => {
+      t.textContent = "Link copied";
+    });
+    return;
+  }
+  if (t.dataset.daily === "hear") {
+    stopSpeak();
+    const clip = new Audio(audioUrl(resolveDaily()));
+    clip.play();
     return;
   }
   if (t.dataset.daily === "copy") {
