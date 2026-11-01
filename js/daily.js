@@ -1,7 +1,7 @@
 import { WORDS } from "./data.js";
 
 export const SITE_URL = "https://sda2025-tech.github.io/vocab/";
-const STREAK_KEY = "mana-vocab-daily";
+const STREAK_KEY = "my-vocab-daily";
 
 export function dateKey(d = new Date()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -35,10 +35,10 @@ export function captionFor(daily) {
     "",
     "Learn it. Find it. Use it. Three rounds, then stop.",
     "",
-    "Mana Vocab",
+    "My Vocab",
     `${SITE_URL}#/daily`,
     "",
-    "#ManaVocab #GREVocab #AcademicEnglish #Vocabulary",
+    "#MyVocab #GREVocab #AcademicEnglish #Vocabulary",
   ].join("\n");
 }
 
@@ -157,7 +157,7 @@ export async function paintStory(canvas, daily) {
   ctx.textAlign = "center";
   ctx.fillStyle = "#1e3a5f";
   ctx.font = "72px Fraunces, 'Source Serif 4', Georgia, serif";
-  ctx.fillText("Mana Vocab", w / 2, 280);
+  ctx.fillText("My Vocab", w / 2, 280);
 
   ctx.fillStyle = "#8b1a1a";
   ctx.font = "36px 'Source Sans 3', sans-serif";
@@ -196,7 +196,7 @@ export async function downloadStory(canvas, daily) {
     canvas.toBlob((blob) => {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `mana-vocab-${daily.n}-${daily.focus.id}.png`;
+      a.download = `my-vocab-${daily.n}-${daily.focus.id}.png`;
       a.click();
       URL.revokeObjectURL(a.href);
       resolve();

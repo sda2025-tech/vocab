@@ -1,4 +1,4 @@
-# Mana Vocab
+# My Vocab
 
 Live site: **https://sda2025-tech.github.io/vocab/**
 

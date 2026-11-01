@@ -15,7 +15,7 @@ import {
 
 const app = document.querySelector("#app");
 const nav = document.querySelector("#chapter-nav");
-const KNOWN_KEY = "mana-vocab-known";
+const KNOWN_KEY = "my-vocab-known";
 
 function knownSet() {
   try {
@@ -108,7 +108,7 @@ function renderHome() {
     <div class="cover">
       <div class="ornament">✦</div>
       <p class="kicker">High-level academic English</p>
-      <h1>Mana Vocab</h1>
+      <h1>My Vocab</h1>
       <p class="subtitle">Word lists, flashcards, text completion, sentence equivalence</p>
       <p class="lead">One hard word a day. Then GRE-style blanks. The Instagram card is today’s word — not a second curriculum.</p>
       <div class="cover-actions">
